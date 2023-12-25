@@ -4,18 +4,19 @@
  * and open the template in the editor.
  */
 package test2;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author PC
  */
 public class Test2 {
+public static  frmMatHang frmMH=new frmMatHang();
+     public static dataBase.MyConnection connection = new  dataBase.MyConnection();
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+       frmMH.show();
     }
-    
 }

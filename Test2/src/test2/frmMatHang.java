@@ -5,6 +5,17 @@
  */
 package test2;
 
+import java.awt.Color;
+import java.sql.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author PC
@@ -16,8 +27,10 @@ public class frmMatHang extends javax.swing.JFrame {
      */
     public frmMatHang() {
         initComponents();
+        LayDuLieuSanPham();
+        cmbCatagory.setModel(LayDuLieucbb("LOAI_MAT_HANG", "TENLOAI", "MALOAI"));
+        cmbUnit.setModel(LayDuLieucbb1("MAT_HANG", "DVT"));
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,22 +40,358 @@ public class frmMatHang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cmbCatagory = new javax.swing.JComboBox<>();
+        txtID = new javax.swing.JTextField();
+        txtItem = new javax.swing.JTextField();
+        spinPrice = new javax.swing.JSpinner();
+        cmbUnit = new javax.swing.JComboBox<>();
+        ckbStatus = new javax.swing.JCheckBox();
+        jLabel6 = new javax.swing.JLabel();
+        txtCmt = new javax.swing.JTextField();
+        btnAdd = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSanPham = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setToolTipText("");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Mã mặt hàng");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Loại mặt hàng");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Giá bán");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Mặt hàng");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("DVT");
+
+        cmbCatagory.setEditable(true);
+        cmbCatagory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbUnit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        ckbStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ckbStatus.setText("Disable");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Mô tả");
+
+        btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setText("Sửa");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnDel.setText("Xóa");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(26, 26, 26)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbCatagory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(81, 81, 81)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(54, 54, 54)
+                                .addComponent(cmbUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ckbStatus))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtItem, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel6))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdd)
+                        .addGap(42, 42, 42)
+                        .addComponent(btnEdit)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnDel)))
+                .addGap(18, 18, 18)
+                .addComponent(txtCmt, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd)
+                    .addComponent(btnEdit)
+                    .addComponent(btnDel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cmbCatagory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(spinPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCmt, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(cmbUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ckbStatus))
+                        .addGap(36, 36, 36)))
+                .addGap(25, 25, 25))
+        );
+
+        jScrollPane1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jScrollPane1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jScrollPane1ComponentShown(evt);
+            }
+        });
+
+        tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Disable", "Nhóm Mặt Hàng", "Mã Mặt Hàng", "Mặt Hàng", "Giá Bán", "DVT", "Mô Tả"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSanPhamMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblSanPham);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 963, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+         
+    private void jScrollPane1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jScrollPane1ComponentShown
+            // TODO add your handling code here: 
+    }//GEN-LAST:event_jScrollPane1ComponentShown
 
+    private void jScrollPane1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jScrollPane1AncestorAdded
+        // TODO add your handling code here
+    }//GEN-LAST:event_jScrollPane1AncestorAdded
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+        // TODO add your handling code here:
+        int viTriDongVuaBam = tblSanPham.getSelectedRow();
+        ckbStatus.setSelected((boolean)tblSanPham.getValueAt(viTriDongVuaBam, 1));       
+        cmbCatagory.setSelectedItem(tblSanPham.getValueAt(viTriDongVuaBam, 2).toString());
+        txtID.setText(tblSanPham.getValueAt(viTriDongVuaBam, 3).toString());
+        txtItem.setText(tblSanPham.getValueAt(viTriDongVuaBam, 4).toString());
+        spinPrice.setValue(tblSanPham.getValueAt(viTriDongVuaBam, 5));
+        cmbUnit.setSelectedItem(tblSanPham.getValueAt(viTriDongVuaBam, 6).toString());
+        txtCmt.setText(tblSanPham.getValueAt(viTriDongVuaBam, 7).toString());
+    }//GEN-LAST:event_tblSanPhamMouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        String Catagory, ID, Item, Unit, Cmt;
+        int Price, Status;
+        Catagory = GetCbbSelected(cmbCatagory);
+        ID = txtID.getText();
+        Price = (int) spinPrice.getValue();
+        Item = txtItem.getText();
+        Unit = (String) cmbUnit.getSelectedItem();
+        Cmt = txtCmt.getText();
+        if (ckbStatus.isSelected()) {
+            Status = 1;
+        } else {
+            Status = 0;
+        }
+        String cautruyvan = "INSERT [dbo].[MAT_HANG] ([MAMH], [TENMH], [GIABAN], [DVT], [MALOAI], [MOTA], [VOHIEUHOA])"
+                + "VALUES (N'" + ID + "',N'" + Item + "'," + Price + ",N'" + Unit + "',N'" + Catagory + "',N'" + Cmt + "'," + Status + ")";
+        System.out.println(Status);
+        
+        boolean kiemtra = KiemTraNhanSanPham(0);
+        if (kiemtra) {
+            dataBase.MyConnection connection = new  dataBase.MyConnection ();
+            connection.ExcuteQueryUpdateDB(cautruyvan);
+            System.out.println("Đã Thêm Thành Công");
+        } else {
+              System.out.println("Thất Bại");
+        }
+        LayDuLieuSanPham();
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        String Catagory, ID, Item, Unit, Cmt;
+        int Price, Status;
+        Catagory = GetCbbSelected(cmbCatagory);
+        ID = txtID.getText();
+        Price = (int) spinPrice.getValue();
+        Item = txtItem.getText();
+        Unit = (String) cmbUnit.getSelectedItem();
+        Cmt = txtCmt.getText();
+        if (ckbStatus.isSelected()) {
+            Status = 1;
+        } else {
+            Status = 0;
+        }
+        String cautruyvan = "update  [dbo].[MAT_HANG] set "
+                + "TENMH =" + "N'" + Item + "',MALOAI=N'" + Catagory + "',GIABAN=" + Price + ",MOTA =N'" + Cmt + "',DVT=N'" + Unit + "',VOHIEUHOA=" + Status +" where MAMH='" + ID + "'";
+        System.out.println(cautruyvan);
+        boolean kiemtra = KiemTraNhanSanPham(1);
+        if (kiemtra) {
+            dataBase.MyConnection connection = new  dataBase.MyConnection ();
+            connection.ExcuteQueryUpdateDB(cautruyvan);
+            System.out.println("Đã Sửa Thành Công Sản Phẩm");
+        } else {
+             System.out.println("Thất Bại");
+        }
+        LayDuLieuSanPham();
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        String ID;
+        ID = txtID.getText();   
+        String cautruyvan = "DELETE FROM [dbo].[MAT_HANG] WHERE MAMH ='" + ID + "'";              
+        System.out.println(cautruyvan);
+        boolean kiemtra = KiemTraNhanSanPham(1);
+        if (kiemtra) {
+            dataBase.MyConnection connection = new  dataBase.MyConnection ();
+            connection.ExcuteQueryUpdateDB(cautruyvan);
+            System.out.println("Đã Xóa Thành Công Sản Phẩm");
+        } else {
+             System.out.println("Thất Bại");
+        }
+        LayDuLieuSanPham();
+    }//GEN-LAST:event_btnDelActionPerformed
+public void LayDuLieuSanPham() {
+        String cautruyvan = "";
+        dataBase.MyConnection connection = new  dataBase.MyConnection ();
+        cautruyvan = "select MAT_HANG.VOHIEUHOA , TENLOAI, MAMH, TENMH, GIABAN, DVT, MOTA from MAT_HANG,LOAI_MAT_HANG  \n" +
+"where MAT_HANG.MALOAI=LOAI_MAT_HANG.MALOAI" ;
+        ResultSet rs = connection.ExcuteQueryGetTable(cautruyvan);
+        DefaultTableModel tableModel = (DefaultTableModel)tblSanPham.getModel();
+        tableModel.setRowCount(0);
+        int c = 0;
+        try {
+            while (rs.next()) {
+                c++;
+                Object[] item = new Object[10];
+                item[0] = c;
+                item[1] = rs.getBoolean("VOHIEUHOA");
+                item[2] = rs.getString("TENLOAI");
+                item[3] = rs.getString("MAMH");
+                item[4] = rs.getString("TENMH");
+                item[5] = rs.getInt("GIABAN");
+                item[6] = rs.getString("DVT");
+                item[7] = rs.getString("MOTA");
+                tableModel.addRow(item);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+}
     /**
      * @param args the command line arguments
      */
@@ -77,7 +426,95 @@ public class frmMatHang extends javax.swing.JFrame {
             }
         });
     }
+    public String GetCbbSelected(JComboBox cbb) {
+        Object[] obj = cbb.getSelectedObjects();
+        displayvalueModel item = (displayvalueModel) obj[0];
+        return item.displayvalue.toString();
 
+    }
+    public DefaultComboBoxModel LayDuLieucbb(String bang, String Ten, String Ma) {
+        String cautruyvan = "select *from " + bang;
+        dataBase.MyConnection connection = new  dataBase.MyConnection ();
+        ResultSet rs = connection.ExcuteQueryGetTable(cautruyvan);
+        DefaultComboBoxModel cbbmodel = new DefaultComboBoxModel();
+        try {
+            while (rs.next()) {
+                displayvalueModel valueModel = new displayvalueModel(rs.getString(Ten), rs.getString(Ma));
+                cbbmodel.addElement(valueModel);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        return cbbmodel;
+    }
+    public DefaultComboBoxModel LayDuLieucbb1(String bang, String Ten) {
+        String cautruyvan = "SELECT DISTINCT " + Ten +" FROM " + bang;
+        dataBase.MyConnection connection = new  dataBase.MyConnection ();
+        ResultSet rs = connection.ExcuteQueryGetTable(cautruyvan);
+        DefaultComboBoxModel cbbmodel = new DefaultComboBoxModel();
+        try {
+            while (rs.next()) {
+                cbbmodel.addElement(rs.getString(Ten));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        return cbbmodel;
+    }
+    public boolean KiemTraNhanSanPham(int ts) {
+        String ID, TenmNH;
+        int GiaBan;
+        boolean kiemtra = false;
+        ID = txtID.getText();
+        TenmNH = txtItem.getText();
+        String  ThongBao = "";
+        GiaBan = (int) spinPrice.getValue();
+        if (ID.equals("") && ts == 1) {
+            ThongBao += "bạn chưa chọn khách hàng để lấy  Mã Khách Hàng\n";
+        }
+        if (TenmNH.equals("")) {
+            ThongBao += "bạn chưa Nhập Tên Sản Phẩm\n";
+        }
+        if (GiaBan == 0) {
+            ThongBao += "bạn chưa Nhập Giá Bán \n";
+        }
+               try {
+                  int bien =Integer.valueOf(GiaBan);
+              } catch (Exception e) {
+                  ThongBao+="Giá Bán Phải là số !\n";
+              }
+      
+        if (ThongBao.equals("")) {
+            kiemtra = true;
+        } else {
+            kiemtra = false;
+            ThongBao(ThongBao, "lỗi nhập liệu", 2);
+        }
+        return kiemtra;
+    }
+    public void ThongBao(String noiDungThongBao, String tieuDeThongBao, int icon) {
+        JOptionPane.showMessageDialog(new JFrame(), noiDungThongBao,
+                tieuDeThongBao, icon);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JCheckBox ckbStatus;
+    private javax.swing.JComboBox<String> cmbCatagory;
+    private javax.swing.JComboBox<String> cmbUnit;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner spinPrice;
+    private javax.swing.JTable tblSanPham;
+    private javax.swing.JTextField txtCmt;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtItem;
     // End of variables declaration//GEN-END:variables
 }

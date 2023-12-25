@@ -23,8 +23,7 @@ public class MyConnection {
        
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conn = DriverManager.getConnection(connectionString);
-            
+            conn = DriverManager.getConnection(connectionString);          
             if(conn != null){
                 System.out.println("Kết nối CSDL SQL Server thành công!");
             }
