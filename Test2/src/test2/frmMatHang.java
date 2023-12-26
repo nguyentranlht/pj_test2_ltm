@@ -6,14 +6,17 @@
 package test2;
 
 import dataBase.MyConnection;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +31,15 @@ public class frmMatHang extends javax.swing.JFrame {
      */
     public frmMatHang() {
         initComponents();
+        btnSave.setEnabled(false);        
+        btnSkip.setEnabled(false);
+        JLabel background = new JLabel(new ImageIcon("C:\\Users\\PC\\Documents\\NetBeansProjects\\pj_test2_ltm\\Test2\\src\\Img\\background.jpg"));
+
+        // Đặt layout của JFrame là BorderLayout để có thể đặt hình ảnh làm nền
+        setLayout(new BorderLayout());
+
+        // Thêm hình ảnh vào vị trí CENTER của BorderLayout
+        add(background, BorderLayout.CENTER);
         LayDuLieuSanPham();
         cmbCatagory.setModel(LayDuLieucbb("LOAI_MAT_HANG", "TENLOAI", "MALOAI"));
         cmbUnit.setModel(LayDuLieucbb1("MAT_HANG", "DVT"));
@@ -58,6 +70,9 @@ public class frmMatHang extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnSkip = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
 
@@ -112,6 +127,17 @@ public class frmMatHang extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setText("Lưu");
+
+        btnSkip.setText("Bỏ qua");
+
+        btnExit.setText("Thoát");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,7 +178,13 @@ public class frmMatHang extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(btnEdit)
                         .addGap(31, 31, 31)
-                        .addComponent(btnDel)))
+                        .addComponent(btnDel)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnSave)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSkip)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExit)))
                 .addGap(18, 18, 18)
                 .addComponent(txtCmt, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -164,7 +196,10 @@ public class frmMatHang extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnEdit)
-                    .addComponent(btnDel))
+                    .addComponent(btnDel)
+                    .addComponent(btnSave)
+                    .addComponent(btnSkip)
+                    .addComponent(btnExit))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -367,6 +402,11 @@ public class frmMatHang extends javax.swing.JFrame {
         }
         LayDuLieuSanPham();
     }//GEN-LAST:event_btnDelActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 public void LayDuLieuSanPham() {
         String cautruyvan = "";
         dataBase.MyConnection connection = new  dataBase.MyConnection ();
@@ -502,6 +542,9 @@ public void LayDuLieuSanPham() {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSkip;
     private javax.swing.JCheckBox ckbStatus;
     private javax.swing.JComboBox<String> cmbCatagory;
     private javax.swing.JComboBox<String> cmbUnit;
