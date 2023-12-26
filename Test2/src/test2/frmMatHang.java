@@ -319,7 +319,7 @@ public class frmMatHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         int viTriDongVuaBam = tblSanPham.getSelectedRow();
         ckbStatus.setSelected((boolean)tblSanPham.getValueAt(viTriDongVuaBam, 1));       
-        cmbCatagory.setSelectedItem(tblSanPham.getValueAt(viTriDongVuaBam, 2).toString());
+        setSelectedCombobox(tblSanPham.getValueAt(viTriDongVuaBam, 2).toString(),cmbCatagory);
         txtID.setText(tblSanPham.getValueAt(viTriDongVuaBam, 3).toString());
         txtItem.setText(tblSanPham.getValueAt(viTriDongVuaBam, 4).toString());
         spinPrice.setValue(tblSanPham.getValueAt(viTriDongVuaBam, 5));
@@ -473,6 +473,17 @@ public void LayDuLieuSanPham() {
         displayvalueModel item = (displayvalueModel) obj[0];
         return item.displayvalue.toString();
 
+    }
+    public void setSelectedCombobox(String cbbselected, JComboBox cbb) {
+        for (int i = 0; i < cbb.getItemCount(); i++) {
+            Object obj = cbb.getItemAt(i);
+            if (obj != null) {
+                displayvalueModel m = (displayvalueModel) obj;
+                if (cbbselected.trim().equals(m.displayMember)) {
+                    cbb.setSelectedItem(m);
+                }
+            }
+        }
     }
     public DefaultComboBoxModel LayDuLieucbb(String bang, String Ten, String Ma) {
         String cautruyvan = "select *from " + bang;
